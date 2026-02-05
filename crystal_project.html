@@ -147,9 +147,7 @@
                 display: none;
             }
 
-            .menu-toggle {
-                display: block !important;
-            }
+
         }
 
         /* Homepage Navbar Compatibility */
@@ -198,18 +196,7 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
-        .menu-toggle span {
-            display: block;
-            width: 25px;
-            height: 2px;
-            background: #fff;
-            margin-bottom: 5px;
-            transition: 0.3s;
-        }
 
-        .menu-toggle span:last-child {
-            margin-bottom: 0;
-        }
 
         /* Footer index.html Styles */
         .footer-top {
@@ -960,18 +947,15 @@
     <div class="cursor-outline"></div>
 
     <!-- MOBILE NAVIGATION OVERLAY -->
-    <div class="mobile-menu"
-        style="position:fixed; inset:0; background:var(--navy); z-index:1050; display:none; align-items:center; justify-content:center; flex-direction:column; gap:40px;">
-        <a href="index.html" class="mobile-link"
-            style="color:#fff; font-size:2rem; font-weight:700; text-decoration:none;">HOME</a>
-        <a href="about.html" class="mobile-link"
-            style="color:#fff; font-size:2rem; font-weight:700; text-decoration:none;">ABOUT</a>
-        <a href="projects.html" class="mobile-link"
-            style="color:#fff; font-size:2rem; font-weight:700; text-decoration:none;">PROJECTS</a>
-        <a href="gallery.html" class="mobile-link"
-            style="color:#fff; font-size:2rem; font-weight:700; text-decoration:none;">PHOTOS</a>
-        <a href="contact.html" class="mobile-link"
-            style="color:#fff; font-size:2rem; font-weight:700; text-decoration:none;">CONTACT US</a>
+    <div class="mobile-menu">
+        <button class="close-mobile" aria-label="Close Menu">
+            <i class="fas fa-times"></i>
+        </button>
+        <a href="index.html" class="mobile-link">HOME</a>
+        <a href="about.html" class="mobile-link">ABOUT</a>
+        <a href="projects.html" class="mobile-link">PROJECTS</a>
+        <a href="gallery.html" class="mobile-link">PHOTOS</a>
+        <a href="contact.html" class="mobile-link">CONTACT US</a>
     </div>
 
     <!-- 🔝 ROYAL NAVBAR -->
@@ -987,7 +971,7 @@
             <nav class="nav-links">
                 <a href="index.html"><i class="fas fa-home"></i> HOME</a>
                 <a href="about.html"><i class="fas fa-info-circle"></i> ABOUT</a>
-                <a href="projects.html" class="active" style="color:var(--gold);><i class=" fas fa-building"></i>
+                <a href="projects.html" class="active" style="color:var(--gold);"><i class="fas fa-building"></i>
                     PROJECTS</a>
                 <a href="gallery.html"><i class="fas fa-images"></i> PHOTOS</a>
                 <a href="contact.html"><i class="fas fa-envelope"></i> CONTACT US</a>
@@ -995,10 +979,8 @@
             <div class="nav-cta">
                 <a href="contact.html" class="btn contact-trigger">INQUIRY</a>
                 <!-- Mobile Toggle -->
-                <button class="menu-toggle" aria-label="Toggle Menu"
-                    style="display:none; background:none; border:none; cursor:pointer;">
-                    <span style="display:block; width:25px; height:2px; background:#fff; margin-bottom:5px;"></span>
-                    <span style="display:block; width:25px; height:2px; background:#fff;"></span>
+                <button class="menu-toggle" aria-label="Toggle Menu">
+                    <span></span><span></span><span></span>
                 </button>
             </div>
         </div>
@@ -1332,23 +1314,7 @@
             }
         });
 
-        // Mobile Menu Logic from index.html
-        const menuToggle = document.querySelector('.menu-toggle');
-        const mobileMenu = document.querySelector('.mobile-menu');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
 
-        if (menuToggle && mobileMenu) {
-            menuToggle.addEventListener('click', () => {
-                const isVisible = mobileMenu.style.display === 'flex';
-                mobileMenu.style.display = isVisible ? 'none' : 'flex';
-            });
-
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.style.display = 'none';
-                });
-            });
-        }
 
         // Hero Animations
         const tl = gsap.timeline();
