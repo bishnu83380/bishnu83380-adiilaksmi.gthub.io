@@ -24,6 +24,15 @@ document.addEventListener('DOMContentLoaded', () => {
             menuToggle.classList.toggle('active');
         });
 
+        // Close button support (if present)
+        const closeBtn = document.querySelector('.close-mobile');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                mobileMenu.style.display = 'none';
+                menuToggle.classList.remove('active');
+            });
+        }
+
         // Close menu on link click
         mobileLinks.forEach(link => {
             link.addEventListener('click', () => {
