@@ -40,29 +40,23 @@
             <div class="nav-cta">
                 <a href="#contact" class="btn contact-trigger">INQUIRY</a>
                 <!-- Mobile Toggle -->
-                <button class="menu-toggle" aria-label="Toggle Menu"
-                    style="display:none; background:none; border:none; cursor:pointer;">
-                    <span style="display:block; width:25px; height:2px; background:#fff; margin-bottom:5px;"></span>
-                    <span style="display:block; width:25px; height:2px; background:#fff;"></span>
+                <button class="menu-toggle" aria-label="Toggle Menu">
+                    <span></span><span></span><span></span>
                 </button>
             </div>
         </div>
     </header>
 
     <!-- MOBILE NAVIGATION OVERLAY -->
-    <div class="mobile-menu"
-        style="position:fixed; inset:0; background:var(--navy); z-index:1050; display:none; align-items:center; justify-content:center; flex-direction:column; gap:40px;">
-        <a href="#home" class="mobile-link"
-            style="color:#fff; font-size:2rem; font-weight:700; text-decoration:none;">HOME</a>
-        <a href="about.html" target="_blank" class="mobile-link"
-            style="color:#fff; font-size:2rem; font-weight:700; text-decoration:none;">ABOUT</a>
-        <a href="projects.html" target="_blank" class="mobile-link"
-            style="color:#fff; font-size:2rem; font-weight:700; text-decoration:none;">PROJECTS</a>
-        <a href="gallery.html" target="_blank" class="mobile-link"
-            style="color:#fff; font-size:2rem; font-weight:700; text-decoration:none;"><i class="fas fa-images"></i>
-            PHOTOS</a>
-        <a href="contact.html" target="_blank" class="mobile-link"
-            style="color:#fff; font-size:2rem; font-weight:700; text-decoration:none;">CONTACT US</a>
+    <div class="mobile-menu">
+        <button class="close-mobile" aria-label="Close Menu">
+            <i class="fas fa-times"></i>
+        </button>
+        <a href="#home" class="mobile-link">HOME</a>
+        <a href="about.html" target="_blank" class="mobile-link">ABOUT</a>
+        <a href="projects.html" target="_blank" class="mobile-link">PROJECTS</a>
+        <a href="gallery.html" target="_blank" class="mobile-link">PHOTOS</a>
+        <a href="contact.html" target="_blank" class="mobile-link">CONTACT US</a>
     </div>
 
     <main id="home">
