@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Adiilaksmi Construction - Elite architectural sovereignty and structural mastery in Bhubaneswar. Discover our leadership and company profile.">
+    <title>About Us | Adiilaksmi Construction Pvt Ltd</title>
+
+    <!-- UI Core -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Premium Frameworks -->
+    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --ivory: #fcfbf7;
+            --navy: #1a2a44;
+            --slate: #4a5568;
+            --gold: #d4a017;
+            --gold-light: #eac05d;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.82);
+            --border: rgba(26, 42, 68, 0.08);
+            --shadow: 0 30px 60px rgba(26, 42, 68, 0.1);
+        }
+
+        body {
+            background-color: var(--ivory);
+            color: var(--navy);
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* 🧩 NAVIGATION */
+        .navbar {
+            background-color: transparent;
+            padding: 30px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .navbar.scrolled {
+            background-color: var(--navy);
+            padding: 15px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+
+        .logo-wrap img {
+            height: 35px;
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            color: var(--navy);
+            font-size: 1.6rem;
+            transition: color 0.3s;
+        }
+
+        .navbar.scrolled .logo-text {
+            color: var(--white);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            color: var(--navy);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .navbar.scrolled .nav-links a {
+            color: var(--white);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 2100;
+        }
+
+        .mobile-toggle span {
+            display: block;
+            width: 30px;
+            height: 2px;
+            background: var(--navy);
+            transition: all 0.3s;
+        }
+
+        .navbar.scrolled .mobile-toggle span {
+            background: var(--white);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            inset: 0;
+            background: var(--navy);
+            z-index: 2000;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .mobile-link {
+            color: var(--white);
+            font-size: 2rem;
+            font-weight: 800;
+            text-decoration: none;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 0.05em;
+        }
+
+        .close-mobile {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            color: var(--white);
+            font-size: 2rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* 🏙️ HERO SECTION */
+        .hero-sec {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+            background: var(--ivory);
+        }
+
+        .hero-content {
+            z-index: 5;
+            text-align: left;
+        }
+
+        .hero-label {
+            display: inline-block;
+            color: var(--gold);
+            font-weight: 800;
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            line-height: 1.1;
+            margin: 0;
+            font-weight: 900;
+            color: var(--navy);
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .hero-title span {
+            color: var(--gold);
+        }
+
+        .hero-desc {
+            font-size: 1.45rem;
+            color: var(--navy);
+            margin-top: 40px;
+            max-width: 850px;
+            line-height: 1.8;
+            font-weight: 400;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .floating-shape {
+            position: absolute;
+            background: var(--gold);
+            opacity: 0.05;
+            z-index: 1;
+            border-radius: 50%;
+        }
+
+        .shape-1 {
+            width: 400px;
+            height: 400px;
+            top: -100px;
+            right: -100px;
+        }
+
+        .shape-2 {
+            width: 600px;
+            height: 600px;
+            bottom: -200px;
+            left: -200px;
+        }
+
+        /* 👥 DIRECTORS SECTION */
+        .directors-sec {
+            padding: 150px 0;
+            background: #ffffff;
+            /* Brighter background */
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-label {
+            color: var(--gold);
+            font-weight: 800;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 6vw, 4.5rem);
+            font-weight: 900;
+            color: var(--navy);
+            margin: 0;
+        }
+
+        .directors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 50px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            opacity: 1 !important;
+            /* Force visibility */
+        }
+
+        .director-card {
+            background: var(--white);
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(26, 42, 68, 0.08);
+            /* Stronger shadow */
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            cursor: pointer;
+            border: 1px solid rgba(26, 42, 68, 0.05);
+            /* Stronger border */
+            opacity: 1 !important;
+            /* Force visibility */
+            visibility: visible !important;
+        }
+
+        .director-card:hover {
+            transform: translateY(-20px);
+            box-shadow: 0 40px 80px rgba(26, 42, 68, 0.15);
+            border-color: var(--gold);
+        }
+
+        .card-img-wrap {
+            height: 520px;
+            overflow: hidden;
+            position: relative;
+            background: #f0f0f0;
+        }
+
+        .card-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: brightness(1);
+            /* Reset filter */
+        }
+
+        .director-card:hover .card-img-wrap img {
+            transform: scale(1.1);
+        }
+
+        .card-content {
+            padding: 45px 35px;
+            text-align: center;
+            background: var(--white);
+            border-top: 1px solid rgba(26, 42, 68, 0.05);
+        }
+
+        .card-content h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.85rem;
+            margin: 0 0 12px;
+            color: var(--navy);
+            font-weight: 900;
+        }
+
+        .card-content .role {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--gold);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            display: block;
+        }
+
+        .view-btn {
+            margin-top: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: var(--navy);
+            font-weight: 800;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 16px 35px;
+            border: 2px solid var(--navy);
+            border-radius: 100px;
+            transition: all 0.4s;
+        }
+
+        .director-card:hover .view-btn {
+            background: var(--navy);
+            color: var(--white);
+        }
+
+        /* 📍 MODAL ENGINE */
+        .bio-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 5000;
+            background: rgba(26, 42, 68, 0.98);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            opacity: 0;
+            transition: opacity 0.4s;
+            backdrop-filter: blur(10px);
+        }
+
+        .bio-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-inner {
+            background: var(--white);
+            max-width: 1200px;
+            width: 100%;
+            border-radius: 40px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            position: relative;
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .bio-modal.active .modal-inner {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background: var(--gold);
+            color: var(--navy);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .modal-info {
+            padding: 60px 80px;
+        }
+
+        .modal-info h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--navy);
+        }
+
+        .modal-info .modal-tag {
+            color: var(--gold);
+            font-weight: 800;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .modal-info p {
+            line-height: 1.8;
+            color: var(--navy);
+            font-size: 1.25rem;
+            font-weight: 400;
+        }
+
+        /* � COMPREHENSIVE RESPONSIVE PROTOCOL */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 30px;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-top {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding: 0 30px;
+            }
+
+            .nav-container {
+                padding: 0 30px;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .directors-grid {
+                grid-template-columns: 1fr;
+                padding: 0 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo-wrap">
+                <img src="logo.png" alt="Adiilaksmi Logo">
+                <div class="logo-text">ADIILAKSMI</div>
+            </a>
+            <div class="nav-links">
+                <a href="projects.html" target="_blank">Our Projects</a>
+                <a href="#profile">Directors</a>
+                <a href="contact.html" target="_blank">Contact Us</a>
+            </div>
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- MOBILE NAVIGATION OVERLAY -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="close-mobile" id="closeMobile"><i class="fas fa-times"></i></button>
+        <div class="mobile-links" style="display:flex; flex-direction:column; align-items:center; gap:30px;">
+            <a href="index.html" class="mobile-link">HOME</a>
+            <a href="#profile" class="mobile-link">Directors</a>
+            <a href="projects.html" target="_blank" class="mobile-link">PROJECTS</a>
+            <a href="calculator.html" class="mobile-link">EMI Calculator</a>
+            <a href="contact.html" target="_blank" class="mobile-link">CONTACT</a>
+        </div>
+    </div>
+
+    <main>
+        <section class="hero-sec">
+            <div class="floating-shape shape-1"></div>
+            <div class="floating-shape shape-2"></div>
+            <div class="container hero-content">
+                <span class="hero-label">The Legacy</span>
+                <h1 class="hero-title">Architectural <span>Sovereignty.</span><br>Structural <span>Mastery.</span></h1>
+                <p class="hero-desc">Since our inception in 2004, Adiilaksmi Construction has been the custodian of
+                    high-fidelity residential infrastructure in Bhubaneswar. We don't just build apartments; we engrave
+                    landmarks in the city's skyline through zero-compromise engineering and artistic precision.</p>
+            </div>
+        </section>
+
+        <section class="directors-sec" id="profile">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-label">Leadership</span>
+                    <h2 class="section-title">Directors Profile</h2>
+                </div>
+
+                <div class="directors-grid">
+                    <div class="director-card" data-bio="director1">
+                        <div class="card-img-wrap"><img src="satyabrata lenka.jpeg" alt="Mr. Satyabrata Lenka"></div>
+                        <div class="card-content">
+                            <h4>MR. SATYABRATA LENKA</h4><span class="role">Director</span>
+                            <div class="view-btn">View Biography <i class="fas fa-arrow-right"></i></div>
+                        </div>
+                    </div>
+                    <div class="director-card" data-bio="director2">
+                        <div class="card-img-wrap"><img src="d.k parida.jpeg" alt="Mr. Dharmendra Kumar Parida"></div>
+                        <div class="card-content">
+                            <h4>MR. DHARMENDRA KUMAR PARIDA</h4><span class="role">Director</span>
+                            <div class="view-btn">View Biography <i class="fas fa-arrow-right"></i></div>
+                        </div>
+                    </div>
+                    <div class="director-card" data-bio="director3">
+                        <div class="card-img-wrap"><img src="subrat lenka.jpeg" alt="Mr. Subrat Lenka"></div>
+                        <div class="card-content">
+                            <h4>MR. SUBRAT LENKA</h4><span class="role">Director</span>
+                            <div class="view-btn">View Biography <i class="fas fa-arrow-right"></i></div>
+                        </div>
+                    </div>
+                    <div class="director-card" data-bio="director4">
+                        <div class="card-img-wrap"><img src="s.s dash.jpeg" alt="Mr. Sidharth Sankar Dash"></div>
+                        <div class="card-content">
+                            <h4>MR. SIDHARTH SANKAR DASH</h4><span class="role">Director</span>
+                            <div class="view-btn">View Biography <i class="fas fa-arrow-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="bioModal" class="bio-modal">
+        <div class="modal-inner">
+            <div class="close-modal"><i class="fas fa-times"></i></div>
+            <div class="card-img-wrap"><img src="" alt="" id="modalImg"></div>
+            <div class="modal-info">
+                <span class="modal-tag">Director Profile</span>
+                <h2 id="modalName">NAME</h2>
+                <div style="width:50px; height:3px; background:var(--gold); margin-bottom:30px;"></div>
+                <p id="modalDesc"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 📞 ROYAL FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <h2>ADIILAKSMI.</h2>
+                    <p style="opacity:0.6;">Delivering luxury residential infrastructure with quality, trust, and
+                        structural innovation since 2008.</p>
+
+                    <div class="footer-newsletter" style="margin-top: 30px;">
+                        <h4 style="margin-bottom: 10px;">STAY UPDATED</h4>
+                        <p style="opacity:0.6; font-size:0.85rem; margin-bottom:15px;">Subscribe for project milestones.
+                        </p>
+                        <form action="https://formspree.io/f/xojlnqka" method="POST" class="newsletter-form">
+                            <input type="email" name="email" required placeholder="Subscribe our news letter"
+                                style="width:100%; padding:12px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#fff; border-radius:4px; margin-bottom:10px;">
+                            <button type="submit" class="btn"
+                                style="width:100%; padding:12px; background:var(--gold); color:var(--navy); border:none; font-weight:800; border-radius:4px; cursor:pointer; transition:all 0.3s ease;">SUBSCRIBE</button>
+                        </form>
+                    </div>
+
+                </div>
+                <div class="footer-nav">
+                    <h4>Navigation</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About us</a></li>
+                        <li><a href="projects.html">Projects</a></li>
+                        <li><a href="contact.html">Contact us</a></li>
+                        <li><a href="calculator.html">Home Loan Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>OFFICE ADDRESS</h4>
+                    <p style="opacity:0.8; margin-bottom:15px; font-size:0.9rem; line-height:1.6;">
+                        PLOT N0-663/665, AT-BHIMPUR,<br>
+                        PO-BALIANTA, BHUBANESWAR,<br>
+                        Khordha, Odisha, 752101
+                    </p>
+                    <p style="font-size:1.1rem; font-weight:600; margin-bottom:10px;">info@adiilaksmi.com</p>
+                    <p style="font-size:2rem; color:var(--gold); font-weight:800;">+91 9861053338</p>
+
+                    <div class="map-box"
+                        style="margin-top:20px; border-radius:10px; overflow:hidden; filter: grayscale(1);">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d483.84048557809194!2d85.90222514584708!3d20.344680702154736!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sin!4v1768532583196!5m2!1sen!2sin"
+                            width="100%" height="150" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ADIILAKSMI CONSTRUCTION PVT LTD. ALL RIGHTS RESERVED. | <a href="privacy-policy.html"
+                        style="color: inherit; text-decoration: none;">Privacy Policy</a> | <a
+                        href="terms-conditions.html" style="color: inherit; text-decoration: none;">Terms &
+                        Conditions</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 📧 INQUIRY MODAL -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content" style="max-width:600px;">
+            <span class="close-modal">DISMISS</span>
+            <div style="text-align:center; margin-bottom:40px;">
+                <h2 style="font-family:'Playfair Display', serif; font-size:3rem;">Inquiry.</h2>
+            </div>
+            <form action="https://formspree.io/f/mykpdyja" method="POST" id="enquiryForm"
+                style="display:flex; flex-direction:column; gap:15px;">
+                <input type="text" name="name" required placeholder="Full Name"
+                    style="padding:15px; border:1px solid #ddd; border-radius:5px;">
+                <input type="email" name="email" required placeholder="Email"
+                    style="padding:15px; border:1px solid #ddd; border-radius:5px;">
+                <input type="tel" name="phone" placeholder="Contact Number"
+                    style="padding:15px; border:1px solid #ddd; border-radius:5px;">
+                <textarea name="message" rows="4" required placeholder="Type your message here..."
+                    style="padding:15px; border:1px solid #ddd; border-radius:5px; resize:none;"></textarea>
+                <button type="submit" class="btn"
+                    style="padding:15px; background:var(--navy); color:#fff; border:none; font-weight:800; cursor:pointer;">Submit</button>
+            </form>
+            <div id="status" style="margin-top:20px; text-align:center; font-weight:700; color:var(--teal);"></div>
+        </div>
+    </div>
+
+    <!-- 🏗️ ONGOING PROJECT FLOATING ACTION -->
+    <a href="crystal_project.html" class="floating-ongoing" title="View Ongoing Projects">
+        <div class="fab-pulse"></div>
+        <i class="fas fa-city"></i>
+        <span class="fab-label">ONGOING</span>
+    </a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+            function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+            requestAnimationFrame(raf);
+
+            gsap.registerPlugin(ScrollTrigger);
+
+            const heroTl = gsap.timeline({ defaults: { ease: 'power4.out', duration: 1.5 } });
+            heroTl.to('.hero-label', { opacity: 1, y: 0 }, 0.2)
+                .to('.hero-title', { opacity: 1, y: 0 }, 0.4)
+                .to('.hero-desc', { opacity: 1, y: 0 }, 0.6);
+
+            // SIMPLIFIED Reveal (removed opacity 0 from animation to prevent disappearing if trigger fails)
+            gsap.from('.director-card', {
+                scrollTrigger: { trigger: '.directors-grid', start: 'top 95%' },
+                y: 100,
+                stagger: 0.1,
+                duration: 1,
+                ease: 'power2.out'
+            });
+
+            const bioData = {
+                director1: {
+                    name: "MR. SATYABRATA LENKA",
+                    desc: "Mr. SATYABRATA LENKA is the Director of ADIILAKSMI CONSTRUCTION PVT. LTD. He has completed his graduation in economic (hons) from BJB College, Bhubaneswar, one of the reputed and renowned colleges under Utkal University. He has acute business experience of more than 25 years in different positions in the construction & real-estate industries. He has successfully completed 15 different projects in a span of 25 years."
+                },
+                director2: {
+                    name: "MR. DHARMENDRA KUMAR PARIDA",
+                    desc: "MR. DHARMENDRA KUMAR PARIDA IS ONE OF THE DIRECTOR OF ADIILAKSMI CONSTRUCTION PVT. LTD. He is having an extensive experience of 25 years as an architect in the field of Real-Estate Development & Designing. He had completed his architecture from Utkal university. He already completed 15 projects all over Odisha during a span of 25 years. Beside he is a member of council of architecture, associate member of Indian institute of architect and Bhubaneswar Development Authority Empanelled Architect."
+                },
+                director3: {
+                    name: "MR. SUBRAT LENKA",
+                    desc: "Mr. Subrat LENKA, is one of the director of ADIILAKSMI CONSTRUCTION PVT. LTD. Is a well qualified professional having mechanical engineering degree from Ramiah Institute of Technology, Bangalore. He has first hand experience in Larsen & Toubro where he was working as an R&D engineer for 2 years. His analysis and formulating techniques of engineering backgrounds helps in finding out effective ways of solving many field related problems of transportation and quality control operations. His engineering and research backgrounds is also one of the major assets in running the business successfully."
+                },
+                director4: {
+                    name: "MR. SIDHARTH SANKAR DASH",
+                    desc: "Mr. SIDHARTH Sankar Dash is one of the director of ADIILAKSMI CONSTRUCTION PVT. LTD. He is a civil engineer and having an extensive experience of 25 years in construction of flats & duplex and real-estate Development. He has already successfully completed 20 projects all over Odisha during a span of 25 years."
+                }
+            };
+
+            const modal = document.getElementById('bioModal');
+            document.querySelectorAll('.director-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const data = bioData[card.dataset.bio];
+                    document.getElementById('modalName').innerText = data.name;
+                    document.getElementById('modalDesc').innerText = data.desc;
+                    document.getElementById('modalImg').src = card.querySelector('img').src;
+                    modal.style.display = 'flex';
+                    setTimeout(() => modal.classList.add('active'), 10);
+                    lenis.stop();
+                });
+            });
+
+            document.querySelector('.close-modal').addEventListener('click', () => {
+                modal.classList.remove('active');
+                setTimeout(() => modal.style.display = 'none', 400);
+                lenis.start();
+            });
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+
+</html>

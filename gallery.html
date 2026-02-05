@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Gallery | Adiilaksmi Construction</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,700;1,900&display=swap');
+
+        :root {
+            --ivory: #fcfbf7;
+            --navy: #0a1128;
+            --gold: #d4a017;
+            --gold-muted: rgba(212, 160, 23, 0.6);
+            --slate: #2c3e50;
+            --glass: rgba(255, 255, 255, 0.03);
+            --transition-smooth: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--ivory);
+            font-family: 'Outfit', sans-serif;
+            color: var(--navy);
+            overflow-x: hidden;
+        }
+
+        /* 💎 PREMIUM NAVBAR */
+        .navbar {
+            background: rgba(10, 17, 40, 0.95) !important;
+            backdrop-filter: blur(25px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 25px 0;
+        }
+
+        .navbar.scrolled {
+            padding: 15px 0;
+            background: rgba(10, 17, 40, 0.98) !important;
+        }
+
+        /* 🖥️ DIGITAL GALLERY HERO (COMPUTER STYLE) */
+        .gallery-hero {
+            height: 100vh;
+            position: relative;
+            background: #020617;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Digital Grid Overlay */
+        .digital-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(212, 160, 23, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212, 160, 23, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 1;
+        }
+
+        .scanline {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: rgba(212, 160, 23, 0.2);
+            top: 0;
+            z-index: 5;
+            pointer-events: none;
+            animation: scanMove 8s linear infinite;
+        }
+
+        @keyframes scanMove {
+            0% {
+                top: -10%;
+            }
+
+            100% {
+                top: 110%;
+            }
+        }
+
+        .hero-viewfinder {
+            position: absolute;
+            z-index: 3;
+            width: 85%;
+            height: 75%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        /* UI Corner Brackets */
+        .corner {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--gold);
+            z-index: 6;
+        }
+
+        .tl {
+            top: -2px;
+            left: -2px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .tr {
+            top: -2px;
+            right: -2px;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .bl {
+            bottom: -2px;
+            left: -2px;
+            border-right: none;
+            border-top: none;
+        }
+
+        .br {
+            bottom: -2px;
+            right: -2px;
+            border-left: none;
+            border-top: none;
+        }
+
+        .monitor-display {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+            background: #000;
+        }
+
+        .monitor-display img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(0.5) contrast(1.2) brightness(0.6);
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .digital-labels {
+            position: absolute;
+            inset: 40px;
+            z-index: 10;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .label-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            color: var(--gold);
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .terminal-text {
+            font-family: monospace;
+            color: #fff;
+            background: rgba(10, 17, 40, 0.8);
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+
+        .main-hero-text {
+            position: absolute;
+            z-index: 15;
+            text-align: left;
+            left: 10%;
+            bottom: 15%;
+            color: #fff;
+        }
+
+        .main-hero-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 10vw, 7rem);
+            line-height: 0.9;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+
+        .main-hero-text .data-tag {
+            font-size: 0.8rem;
+            color: var(--gold);
+            letter-spacing: 5px;
+            margin-bottom: 10px;
+            display: block;
+            opacity: 0;
+        }
+
+        .crosshair {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            z-index: 10;
+            opacity: 0.3;
+        }
+
+        .crosshair::before,
+        .crosshair::after {
+            content: '';
+            position: absolute;
+            background: var(--gold);
+        }
+
+        .crosshair::before {
+            width: 100%;
+            height: 1px;
+            top: 50%;
+            left: 0;
+        }
+
+        .crosshair::after {
+            height: 100%;
+            width: 1px;
+            left: 50%;
+            top: 0;
+        }
+
+        .hero-meta-box {
+            position: absolute;
+            bottom: 50px;
+            left: 5%;
+            z-index: 6;
+            color: var(--gold);
+            font-size: 0.7rem;
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            writing-mode: vertical-lr;
+            transform: rotate(180deg);
+            opacity: 0;
+        }
+
+        .hero-scroll-discover {
+            position: absolute;
+            bottom: 40px;
+            right: 5%;
+            z-index: 6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            opacity: 0;
+        }
+
+        .discover-line {
+            width: 1px;
+            height: 80px;
+            background: linear-gradient(to bottom, var(--gold), transparent);
+        }
+
+        /* 🌫️ BLURRED GRADIENT OVERLAY */
+        .hero-bottom-fade {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30vh;
+            background: linear-gradient(to top, var(--ivory), transparent);
+            z-index: 3;
+        }
+
+        /* 📍 SOPHISTICATED FILTERS */
+        .sticky-nav-gallery {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(252, 251, 247, 0.8);
+            backdrop-filter: blur(20px);
+            padding: 40px 5%;
+            border-bottom: 1px solid rgba(10, 17, 40, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition-smooth);
+        }
+
+        .gallery-label {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 15px;
+            background: rgba(10, 17, 40, 0.03);
+            padding: 6px;
+            border-radius: 50px;
+        }
+
+        .tab-btn {
+            padding: 12px 30px;
+            border-radius: 40px;
+            border: none;
+            background: transparent;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            color: rgba(10, 17, 40, 0.4);
+            transition: all 0.4s ease;
+        }
+
+        .tab-btn.active {
+            background: var(--navy);
+            color: #fff;
+            box-shadow: 0 10px 20px rgba(10, 17, 40, 0.2);
+        }
+
+        /* 🖼️ CURATED MASONRY GRID */
+        .masonry-gallery {
+            padding: 80px 5%;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 30px;
+        }
+
+        .gallery-item {
+            position: relative;
+            grid-column: span 4;
+            height: 500px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .gallery-item.v-tall {
+            height: 700px;
+        }
+
+        .gallery-item.h-wide {
+            grid-column: span 8;
+        }
+
+        .gallery-item.full {
+            grid-column: span 12;
+            height: 80vh;
+        }
+
+        .img-container {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: scale 1.5s cubic-bezier(0.19, 1, 0.22, 1), filter 0.8s ease;
+        }
+
+        /* Reveal Overlay */
+        .item-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(10, 17, 40, 0.8) 0%, transparent 60%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 40px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition-smooth);
+        }
+
+        .gallery-item:hover .item-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .gallery-item:hover img {
+            scale: 1.1;
+        }
+
+        .item-category {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .item-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        /* 💡 LIGHTBOX MODAL */
+        #lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 17, 40, 0.98);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 5%;
+            backdrop-filter: blur(15px);
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 85vh;
+            border-radius: 10px;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 2001;
+            transition: 0.3s;
+        }
+
+        .lightbox-close:hover {
+            color: var(--gold);
+            transform: rotate(90deg);
+        }
+
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+
+            .gallery-item,
+            .gallery-item.h-wide,
+            .gallery-item.v-tall {
+                grid-column: span 6;
+                height: 400px;
+            }
+
+            .gallery-item.full {
+                grid-column: span 12;
+            }
+
+            .sticky-nav-gallery {
+                flex-direction: column;
+                gap: 20px;
+                align-items: flex-start;
+            }
+
+            .hero-main-title {
+                font-size: 12vw;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gallery-item {
+                grid-column: span 12 !important;
+                height: 350px !important;
+            }
+
+
+            .hero-main-title {
+                font-size: 15vw;
+            }
+
+            .filter-tabs {
+                width: 100%;
+                overflow-x: auto;
+                white-space: nowrap;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 🔝 ROYAL NAVBAR -->
+    <header class="navbar">
+        <div class="container nav-row">
+            <a href="index.html" class="logo" style="display:flex; align-items:center; gap:15px; text-decoration:none;">
+                <img src="logo.png" alt="Adiilaksmi Logo" style="height:35px;">
+                <div class="company-name"
+                    style="font-family:'Playfair Display', serif; font-weight:900; color:#fff; font-size:1.6rem;">
+                    ADIILAKSMI</div>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html"><i class="fas fa-home"></i> HOME</a>
+                <a href="about.html"><i class="fas fa-info-circle"></i> ABOUT</a>
+                <a href="projects.html"><i class="fas fa-building"></i> Projects</a>
+                <a href="gallery.html" class="active" style="color:var(--gold);"><i class="fas fa-images"></i>
+                    gallery</a>
+                <a href="contact.html"><i class="fas fa-envelope"></i> CONTACT</a>
+            </nav>
+            <div class="nav-cta">
+                <a href="contact.html" class="btn">INQUIRY</a>
+                <button class="menu-toggle" aria-label="Toggle Menu" style="display:none; color:#fff;">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- 🎥 COMPUTER STYLE HERO -->
+        <section class="gallery-hero">
+            <div class="digital-grid"></div>
+            <div class="scanline"></div>
+            <div class="crosshair"></div>
+
+            <div class="hero-viewfinder">
+                <div class="corner tl"></div>
+                <div class="corner tr"></div>
+                <div class="corner bl"></div>
+                <div class="corner br"></div>
+
+                <div class="monitor-display">
+                    <img src="kh tower view.jpeg" alt="Archive Data File 001" id="heroMainImg">
+                </div>
+
+                <div class="digital-labels">
+                    <div class="label-row">
+                        <span>SYS_STATUS: ACTIVE</span>
+                        <span class="terminal-text">PROJECT_REF: AL-PORTFOLIO_V2.0</span>
+                    </div>
+                    <div class="label-row">
+                        <span>LOCATION_COORD: 20.3447° N, 85.9022° E</span>
+                        <span>ARCHIVE_INIT_2008</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-hero-text">
+                <span class="data-tag">// FETCHING ARCHITECTURAL DATA</span>
+                <h1>VISUAL<br>ARCHIVE.</h1>
+            </div>
+
+            <div class="hero-scroll-discover">
+                <span
+                    style="color:var(--gold); font-size: 0.7rem; font-weight:800; letter-spacing:3px; margin-bottom:10px;">SCROLL_TO_RECURSE</span>
+                <div class="discover-line"></div>
+            </div>
+        </section>
+
+        <!-- 📍 STICKY NAVIGATION -->
+        <div class="sticky-nav-gallery">
+            <div class="gallery-label">Portfolio</div>
+            <div class="filter-tabs">
+                <button class="tab-btn active" data-filter="all">All View</button>
+                <button class="tab-btn" data-filter="ongoing">Ongoing</button>
+                <button class="tab-btn" data-filter="completed">Delivered</button>
+            </div>
+        </div>
+
+        <!-- 🖼️ THE GALLERY -->
+        <div class="masonry-gallery">
+            <!-- Item 1: WIDE -->
+            <div class="gallery-item full completed" data-category="completed">
+                <div class="img-container">
+                    <img src="kh tower view.jpeg" alt="Kalyani Heights I" loading="lazy">
+                </div>
+                <div class="item-overlay">
+                    <span class="item-category">Flagship / Pahala</span>
+                    <h3 class="item-name">Kalyani Heights I</h3>
+                </div>
+            </div>
+
+            <!-- Item 2: TALL -->
+            <div class="gallery-item v-tall ongoing" data-category="ongoing">
+                <div class="img-reveal">
+                    <img src="crystal.png" alt="Crystal Luxury" loading="lazy">
+                </div>
+                <div class="item-overlay">
+                    <span class="item-category">Elite / Patia</span>
+                    <h3 class="item-name">Crystal</h3>
+                </div>
+            </div>
+
+            <!-- Item 3: STANDARD -->
+            <div class="gallery-item completed" data-category="completed">
+                <div class="img-container">
+                    <img src="premier residency.jpeg" alt="Premier Residency" loading="lazy">
+                </div>
+                <div class="item-overlay">
+                    <span class="item-category">Residential / Chandrasekharpur</span>
+                    <h3 class="item-name">Premier Residency</h3>
+                </div>
+            </div>
+
+            <!-- Item 4: STANDARD -->
+            <div class="gallery-item ongoing" data-category="upcoming">
+                <div class="img-container">
+                    <img src="kalyani heights -  II.png" alt="Kalyani Heights II" loading="lazy">
+                </div>
+                <div class="item-overlay">
+                    <span class="item-category">UPCOMING / NAKHARA</span>
+                    <h3 class="item-name">Kalyani Heights II</h3>
+                </div>
+            </div>
+
+            <!-- Item 5: H-WIDE -->
+            <div class="gallery-item h-wide completed" data-category="completed">
+                <div class="img-container">
+                    <img src="sainath palace-i.jpeg" alt="Sai Nath Palace" loading="lazy">
+                </div>
+                <div class="item-overlay">
+                    <span class="item-category">Signature / Jagamara</span>
+                    <h3 class="item-name">Sai Nath Palace I</h3>
+                </div>
+            </div>
+
+            <!-- Item 6: STANDARD -->
+            <div class="gallery-item completed" data-category="completed">
+                <div class="img-container">
+                    <img src="sainath palace-ii.jpeg" alt="Sai Nath Palace II" loading="lazy">
+                </div>
+                <div class="item-overlay">
+                    <span class="item-category">Classic / Jagamara</span>
+                    <h3 class="item-name">Sai Nath Palace II</h3>
+                </div>
+            </div>
+
+            <!-- Item 7: STANDARD -->
+            <div class="gallery-item completed" data-category="completed">
+                <div class="img-container">
+                    <img src="merilli homes.png" alt="Merilli Homes" loading="lazy">
+                </div>
+                <div class="item-overlay">
+                    <span class="item-category">Luxury / Baramunda</span>
+                    <h3 class="item-name">Merilli Homes</h3>
+                </div>
+            </div>
+
+            <!-- Item 8: TALL -->
+            <div class="gallery-item v-tall completed" data-category="completed">
+                <div class="img-container">
+                    <img src="premier plazza.jpeg" alt="Premier Plaza" loading="lazy">
+                </div>
+                <div class="item-overlay">
+                    <span class="item-category">Premium / Patia</span>
+                    <h3 class="item-name">Premier Plaza</h3>
+                </div>
+            </div>
+
+            <!-- Item 9: STANDARD -->
+            <div class="gallery-item completed" data-category="completed">
+                <div class="img-container">
+                    <img src="premier arsheina.png" alt="Premier Arsheina" loading="lazy">
+                </div>
+                <div class="item-overlay">
+                    <span class="item-category">Living / Patia</span>
+                    <h3 class="item-name">Premier Arsheina</h3>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- 📞 ROYAL FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <h2>ADIILAKSMI.</h2>
+                    <p style="opacity:0.6;">Delivering luxury residential infrastructure with quality, trust, and
+                        structural innovation since 2008.</p>
+
+                    <div class="footer-newsletter" style="margin-top: 30px;">
+                        <h4 style="margin-bottom: 10px;">STAY UPDATED</h4>
+                        <p style="opacity:0.6; font-size:0.85rem; margin-bottom:15px;">Subscribe for project milestones.
+                        </p>
+                        <form action="https://formspree.io/f/xojlnqka" method="POST" class="newsletter-form">
+                            <input type="email" name="email" required placeholder="Subscribe our news letter"
+                                style="width:100%; padding:12px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#fff; border-radius:4px; margin-bottom:10px;">
+                            <button type="submit" class="btn"
+                                style="width:100%; padding:12px; background:var(--gold); color:var(--navy); border:none; font-weight:800; border-radius:4px; cursor:pointer; transition:all 0.3s ease;">SUBSCRIBE</button>
+                        </form>
+                    </div>
+
+                </div>
+                <div class="footer-nav">
+                    <h4>Navigation</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html" target="_blank">About us</a></li>
+                        <li><a href="projects.html">Projects</a></li>
+                        <li><a href="gallery.html">Photos</a></li>
+                        <li><a href="contact.html" target="_blank">Contact us</a></li>
+                        <li><a href="calculator.html">Home Loan Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>OFFICE ADDRESS</h4>
+                    <p style="opacity:0.8; margin-bottom:15px; font-size:0.9rem; line-height:1.6;">
+                        PLOT N0-663/665, AT-BHIMPUR,<br>
+                        PO-BALIANTA, BHUBANESWAR,<br>
+                        Khordha, Odisha, 752101
+                    </p>
+                    <p style="font-size:1.1rem; font-weight:600; margin-bottom:10px;">info@adiilaksmi.com</p>
+                    <p style="font-size:2rem; color:var(--gold); font-weight:800;">+91 9861053338</p>
+
+                    <div class="map-box"
+                        style="margin-top:20px; border-radius:10px; overflow:hidden; filter: grayscale(1);">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d483.84048557809194!2d85.90222514584708!3d20.344680702154736!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sin!4v1768532583196!5m2!1sen!2sin"
+                            width="100%" height="150" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ADIILAKSMI CONSTRUCTION PVT LTD. ALL RIGHTS RESERVED. | <a href="privacy-policy.html"
+                        style="color: inherit; text-decoration: none;">Privacy Policy</a> | <a
+                        href="terms-conditions.html" style="color: inherit; text-decoration: none;">Terms &
+                        Conditions</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 📧 INQUIRY MODAL -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content" style="max-width:600px;">
+            <span class="close-modal">DISMISS</span>
+            <div style="text-align:center; margin-bottom:40px;">
+                <h2 style="font-family:'Playfair Display', serif; font-size:3rem;">Inquiry.</h2>
+            </div>
+            <form action="https://formspree.io/f/mykpdyja" method="POST" id="enquiryForm"
+                style="display:flex; flex-direction:column; gap:15px;">
+                <input type="text" name="name" required placeholder="Full Name"
+                    style="padding:15px; border:1px solid #ddd; border-radius:5px;">
+                <input type="email" name="email" required placeholder="Email"
+                    style="padding:15px; border:1px solid #ddd; border-radius:5px;">
+                <input type="tel" name="phone" placeholder="Contact Number"
+                    style="padding:15px; border:1px solid #ddd; border-radius:5px;">
+                <textarea name="message" rows="4" required placeholder="Type your message here..."
+                    style="padding:15px; border:1px solid #ddd; border-radius:5px; resize:none;"></textarea>
+                <button type="submit" class="btn"
+                    style="padding:15px; background:var(--navy); color:#fff; border:none; font-weight:800; cursor:pointer;">Submit</button>
+            </form>
+            <div id="status" style="margin-top:20px; text-align:center; font-weight:700; color:var(--teal);"></div>
+        </div>
+    </div>
+
+    <!-- 💡 LIGHTBOX MODAL -->
+    <div id="lightbox">
+        <span class="lightbox-close"><i class="fas fa-times"></i></span>
+        <div class="lightbox-content">
+            <img src="" alt="Full View" class="lightbox-img">
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Smooth Scroll
+            const lenis = new Lenis();
+            function raf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+            requestAnimationFrame(raf);
+
+            gsap.registerPlugin(ScrollTrigger);
+
+            // 💻 Computer Interface Hero Animations
+            const heroTl = gsap.timeline();
+            heroTl.to('#heroMainImg', { opacity: 1, duration: 1.5, ease: "power2.inOut" })
+                .to('.data-tag', { opacity: 1, duration: 0.8 }, "-=0.5")
+                .to('.main-hero-text h1', { opacity: 1, x: 0, duration: 1.2, ease: "expo.out" }, "-=0.2")
+                .to('.hero-scroll-discover', { opacity: 1, y: 0, duration: 1.5 }, "-=0.5");
+
+            // Subtle digital flicker effect
+            gsap.to('.monitor-display', {
+                opacity: 0.8,
+                duration: 0.1,
+                repeat: 5,
+                yoyo: true,
+                repeatDelay: 2,
+                ease: "steps(1)"
+            });
+
+            gsap.to('.hero-viewfinder', {
+                yPercent: -10,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: ".gallery-hero",
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: true
+                }
+            });
+
+            // 🖼️ Gallery Item Reveal
+            gsap.utils.toArray('.gallery-item').forEach((item, i) => {
+                gsap.from(item, {
+                    scrollTrigger: {
+                        trigger: item,
+                        start: "top 90%",
+                        toggleActions: "play none none none"
+                    },
+                    y: 60,
+                    opacity: 0,
+                    duration: 1.2,
+                    ease: "power4.out",
+                    delay: (i % 3) * 0.1
+                });
+            });
+
+            // 📍 Filter Logic
+            const tabs = document.querySelectorAll('.tab-btn');
+            const items = document.querySelectorAll('.gallery-item');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    const category = tab.dataset.filter;
+
+                    items.forEach(item => {
+                        if (category === 'all' || item.dataset.category === category) {
+                            gsap.to(item, { scale: 1, opacity: 1, duration: 0.5, display: 'block' });
+                        } else {
+                            gsap.to(item, { scale: 0.8, opacity: 0, duration: 0.5, display: 'none' });
+                        }
+                    });
+                    setTimeout(() => ScrollTrigger.refresh(), 500);
+                });
+            });
+
+            // 💡 Lightbox Logic
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = lightbox.querySelector('.lightbox-img');
+            const closeBtn = lightbox.querySelector('.lightbox-close');
+
+            items.forEach(item => {
+                item.addEventListener('click', () => {
+                    const src = item.querySelector('img').src;
+                    lightboxImg.src = src;
+                    lightbox.style.display = 'flex';
+                    gsap.to(lightboxImg, { opacity: 1, scale: 1, duration: 0.8, ease: "expo.out" });
+                });
+            });
+
+            closeBtn.addEventListener('click', () => {
+                gsap.to(lightboxImg, {
+                    opacity: 0, scale: 0.9, duration: 0.5, onComplete: () => {
+                        lightbox.style.display = 'none';
+                    }
+                });
+            });
+
+        });
+    </script>
+</body>
+
+</html>
