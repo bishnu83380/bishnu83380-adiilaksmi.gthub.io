@@ -130,7 +130,7 @@
             color: var(--gold);
         }
 
-        .mobile-toggle {
+        .menu-toggle {
             display: none;
             flex-direction: column;
             gap: 6px;
@@ -138,52 +138,38 @@
             border: none;
             cursor: pointer;
             z-index: 2100;
+            padding: 10px;
         }
 
-        .mobile-toggle span {
+        .menu-toggle span {
             display: block;
-            width: 30px;
-            height: 2px;
+            width: 32px;
+            height: 3px;
             background: var(--navy);
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 2px;
         }
 
-        .navbar.scrolled .mobile-toggle span {
+        .navbar.scrolled .menu-toggle span,
+        .menu-toggle.active span {
             background: var(--white);
         }
 
-        /* Mobile Menu */
-        .mobile-menu {
-            position: fixed;
-            inset: 0;
-            background: var(--navy);
-            z-index: 2000;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 40px;
+        /* Animation to X */
+        .menu-toggle.active span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
         }
 
-        .mobile-link {
-            color: var(--white);
-            font-size: 2rem;
-            font-weight: 800;
-            text-decoration: none;
-            font-family: 'Playfair Display', serif;
-            letter-spacing: 0.05em;
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(20px);
         }
 
-        .close-mobile {
-            position: absolute;
-            top: 40px;
-            right: 40px;
-            color: var(--white);
-            font-size: 2rem;
-            background: none;
-            border: none;
-            cursor: pointer;
+        .menu-toggle.active span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
         }
+
+
 
         /* 🏙️ HERO SECTION */
         .hero-sec {
@@ -497,7 +483,7 @@
                 padding: 0 30px;
             }
 
-            .mobile-toggle {
+            .menu-toggle {
                 display: flex;
             }
 
@@ -526,7 +512,7 @@
                 <a href="#profile">Directors</a>
                 <a href="contact.html" target="_blank">Contact Us</a>
             </div>
-            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Menu">
+            <button class="menu-toggle" id="mobileToggle" aria-label="Toggle Menu">
                 <span></span><span></span><span></span>
             </button>
         </div>
