@@ -495,6 +495,37 @@
                 grid-template-columns: 1fr;
                 padding: 0 20px;
             }
+
+            .modal-inner {
+                grid-template-columns: 1fr;
+                margin: 15px;
+                max-height: 85vh;
+                overflow-y: auto;
+                border-radius: 25px;
+            }
+
+            .modal-inner .card-img-wrap {
+                height: 320px;
+            }
+
+            .modal-info {
+                padding: 30px 25px;
+            }
+
+            .modal-info h2 {
+                font-size: 2.2rem;
+            }
+
+            .modal-info p {
+                font-size: 1.1rem;
+            }
+
+            .close-modal {
+                top: 15px;
+                right: 15px;
+                width: 40px;
+                height: 40px;
+            }
         }
     </style>
 </head>
@@ -554,7 +585,10 @@
                     <div class="director-card" data-bio="director1">
                         <div class="card-img-wrap"><img src="satyabrata lenka.jpeg" alt="Mr. Satyabrata Lenka"></div>
                         <div class="card-content">
-                            <h4>MR. SATYABRATA LENKA</h4><span class="role">Director</span><br><span class="role">Founder</span>
+                            <h4>MR. SATYABRATA LENKA</h4>
+                            <span class="role">Directors</span>
+                            <span class="role">&</span>
+                            <span class="role">Founder</span>
                             <div class="view-btn">View Biography <i class="fas fa-arrow-right"></i></div>
                         </div>
                     </div>
@@ -712,7 +746,7 @@
             const bioData = {
                 director1: {
                     name: "MR. SATYABRATA LENKA",
-                    desc: "Mr. SATYABRATA LENKA is the Founder of ADIILAKSMI CONSTRUCTION PVT. LTD. He has completed his graduation in economic (hons) from BJB College, Bhubaneswar, one of the reputed and renowned colleges under Utkal University. He has acute business experience of more than 25 years in different positions in the construction & real-estate industries. He has successfully completed 15 different projects in a span of 25 years."
+                    desc: "Mr. SATYABRATA LENKA is the founder of ADIILAKSMI CONSTRUCTION PVT. LTD. He has completed his graduation in economic (hons) from BJB College, Bhubaneswar, one of the reputed and renowned colleges under Utkal University. He has acute business experience of more than 25 years in different positions in the construction & real-estate industries. He has successfully completed 15 different projects in a span of 25 years."
                 },
                 director2: {
                     name: "MR. DHARMENDRA KUMAR PARIDA",
@@ -752,4 +786,3 @@
 </body>
 
 </html>
-
