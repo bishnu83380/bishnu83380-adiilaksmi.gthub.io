@@ -132,6 +132,10 @@ body {
     justify-content: center;
 }
 
+.menu-toggle {
+    display: none;
+}
+
 #heroVideo {
     position: absolute;
     top: 50%;
@@ -729,7 +733,6 @@ footer {
         padding: 0 30px;
     }
 
-    .directors-grid,
     .footer-top {
         grid-template-columns: 1fr;
         gap: 60px;
@@ -747,6 +750,10 @@ footer {
 }
 
 @media (max-width: 768px) {
+    .directors-grid {
+        grid-template-columns: 1fr;
+    }
+
     .projects-grid-six {
         grid-template-columns: 1fr;
         gap: 30px;
@@ -759,6 +766,10 @@ footer {
     .test-text {
         font-size: 1.5rem;
     }
+}
+
+.mobile-menu {
+    display: none;
 }
 
 @media (max-width: 768px) {
